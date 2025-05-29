@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bảng điểm cá nhân toàn khóa của Trần Khắc Sơn, sinh viên Công nghệ thông tin">
+  <title>Bảng Điểm Cá Nhân Toàn Khóa - Trần Khắc Sơn</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+    }
+    .header-bar {
+      background-color: #1a3c6d;
+      color: white;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+    }
+    .timestamp {
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .title-section {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .main-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a3c6d;
+      margin: 0;
+    }
+    .sub-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin: 10px 0;
+    }
+    .info-section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .info-label {
+      font-weight: 500;
+      min-width: 130px;
+      margin-right: 15px;
+      color: #555;
+    }
+    .info-value {
+      font-weight: 600;
+      color: #222;
+      flex: 1;
+    }
+    .transcript-table {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .transcript-table table {
+      margin: 0;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .transcript-table th {
+      background-color: #e9ecef;
+      border: 1px solid #dee2e6;
+      padding: 8px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 12px;
+      vertical-align: middle;
+      color: #1a3c6d;
+    }
+    .transcript-table td {
+      border: 1px solid #dee2e6;
+      padding: 8px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 13px;
+    }
+    .subject-name {
+      text-align: left !important;
+      padding-left: 10px !important;
+    }
+    .grade-A { color: #28a745; font-weight: 600; }
+    .grade-B { color: #17a2b8; font-weight: 600; }
+    .grade-C { color: #ffc107; font-weight: 600; }
+    .grade-D { color: #fd7e14; font-weight: 600; }
+    .grade-F { color: #dc3545; font-weight: 600; }
+    .footer-info {
+      background: white;
+      padding: 12px;
+      font-size: 12px;
+      color: #555;
+      text-align: center;
+    }
+    .btn-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+    .btn-custom {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-back {
+      background-color: #6c757d;
+      color: white;
+    }
+    .btn-back:hover {
+      background-color: #5a6268;
+    }
+    .btn-print {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-print:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 768px) {
+      body {
+        font-size: 13px;
+      }
+      .container {
+        margin: 10px;
+      }
+      .header-bar {
+        height: 35px;
+      }
+      .timestamp {
+        font-size: 11px;
+      }
+      .main-title {
+        font-size: 16px;
+      }
+      .sub-title {
+        font-size: 14px;
+      }
+      .info-section {
+        padding: 15px;
+      }
+      .info-row {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .info-label {
+        min-width: auto;
+        margin-right: 10px;
+        margin-bottom: 2px;
+      }
+      .info-value {
+        margin-right: 0;
+      }
+      .info-col {
+        padding: 0 5px;
+      }
+      .transcript-table {
+        font-size: 12px;
+      }
+      .transcript-table th, .transcript-table td {
+        padding: 6px;
+        font-size: 11px;
+      }
+      .transcript-table th:nth-child(7), .transcript-table td:nth-child(7),
+      .transcript-table th:nth-child(8), .transcript-table td:nth-child(8) {
+        display: none;
+      }
+      .subject-name {
+        max-width: 200px;
+      }
+      .btn-container {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 1000;
+      }
+      .btn-custom {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+      .btn-custom i {
+        font-size: 18px;
+      }
+      .btn-custom span {
+        display: none;
+      }
+    }
+    @media print {
+      .btn-container {
+        display: none;
+      }
+      body {
+        font-size: 12px;
+      }
+      .header-bar {
+        background: #1a3c6d !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .transcript-table th, .transcript-table td {
+        border: 1px solid #000;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Button Controls -->
+  <div class="btn-container">
+    <a href="index.html" class="btn btn-custom btn-back">
+      <i class="fas fa-arrow-left"></i>
+      <span>Quay lại CV</span>
+    </a>
+    <button class="btn btn-custom btn-print" onclick="printTranscript()">
+      <i class="fas fa-print"></i>
+      <span>In bảng điểm</span>
+    </button>
+  </div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="timestamp"></div>
+  </div>
+
+  <!-- Title Section -->
+  <div class="table-container">
+    <div class="title-section">
+      <div class="main-title">Giải pháp Phần mềm Quản trị Trường học số UniSoft - Thiên An</div>
+      <div class="sub-title">BẢNG ĐIỂM CÁ NHÂN TOÀN KHÓA</div>
+    </div>
+
+    <!-- Student Info Section -->
+    <div class="info-section">
+      <div class="row">
+        <div class="col-6 col-md-6 info-col">
+          <div class="info-row">
+            <span class="info-label">Mã sinh viên:</span>
+            <span class="info-value" id="displayStudentId">20213523</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Họ và tên:</span>
+            <span class="info-value" id="displayStudentName">Trần Khắc Sơn</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Ngày sinh:</span>
+            <span class="info-value" id="displayBirthDate">18/06/2003</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">TBC thang điểm 10:</span>
+            <span class="info-value" id="displayGPA10">7.11</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Số môn thi lại:</span>
+            <span class="info-value" id="displayRetakeCount">0</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-6 info-col">
+          <div class="info-row">
+            <span class="info-label">Ngành:</span>
+            <span class="info-value" id="displayMajor">Công nghệ thông tin</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Lớp:</span>
+            <span class="info-value" id="displayClass">DCCNTT12.10.12</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Niên khóa:</span>
+            <span class="info-value" id="displayCourse">2021-2025</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Xếp loại học tập:</span>
+            <span class="info-value" id="displayRank">Khá</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Số môn học lại:</span>
+            <span class="info-value" id="displayRepeatCount">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transcript Table -->
+    <div class="transcript-table table-responsive">
+      <table class="table table-sm mb-0">
+        <thead>
+        <tr>
+          <th style="min-width: 60px;">HỌC KỲ</th>
+          <th style="min-width: 80px;">NĂM HỌC</th>
+          <th style="min-width: 90px;">MÃ HỌC PHẦN</th>
+          <th style="min-width: 300px;">TÊN HỌC PHẦN</th>
+          <th style="min-width: 60px;">SỐ TÍN CHỈ</th>
+          <th style="min-width: 80px;">THANG ĐIỂM</th>
+          <th style="min-width: 80px;">KHÔNG TÍNH TBC</th>
+          <th style="min-width: 80px;">GHI CHÚ</th>
+        </tr>
+        </thead>
+        <tbody id="transcriptTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-info">
+      Trang <span id="pageNumber">1/3</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Transcript data
+  const transcriptData = [
+    {semester: 2, year: "2024-2025", code: "IT4237", name: "Thực tập tốt nghiệp", credits: 3, grade: "A+"},
+    {semester: 1, year: "2024-2025", code: "IT3226", name: "Công nghệ phần mềm", credits: 2, grade: "B+"},
+    {semester: 1, year: "2024-2025", code: "IT3228", name: "Đồ án chuyên ngành CNPM", credits: 5, grade: "A"},
+    {semester: 1, year: "2024-2025", code: "IT2205", name: "Phát triển ứng dụng cho thiết bị di động", credits: 4, grade: "B"},
+    {semester: 1, year: "2024-2025", code: "IT3230", name: "Quản lý dự án CNTT", credits: 2, grade: "C"},
+    {semester: 1, year: "2024-2025", code: "IT3234", name: "Trí tuệ nhân tạo", credits: 3, grade: "A"},
+    {semester: 1, year: "2024-2025", code: "IT3243", name: "Xử lý ảnh và thị giác máy tính", credits: 3, grade: "A"},
+    {semester: 2, year: "2023-2024", code: "IT3214", name: "An toàn bảo mật thông tin", credits: 3, grade: "B"},
+    {semester: 2, year: "2023-2024", code: "IT3242", name: "Công nghệ Java", credits: 4, grade: "B"},
+    {semester: 2, year: "2023-2024", code: "IT3240", name: "Kiểm thử phần mềm", credits: 3, grade: "C+"},
+    {semester: 2, year: "2023-2024", code: "IT3236", name: "Kỹ thuật đồ họa máy tính", credits: 3, grade: "B+"},
+    {semester: 2, year: "2023-2024", code: "IT3241", name: "Lập trình ứng dụng với Python", credits: 4, grade: "A"},
+    {semester: 2, year: "2023-2024", code: "IT3215", name: "Quản trị hệ thống Windows Server 1", credits: 3, grade: "B"},
+    {semester: 2, year: "2023-2024", code: "IT3239", name: "Tiếng Anh CN CNPM", credits: 2, grade: "D+"},
+    {semester: 1, year: "2023-2024", code: "IT3262", name: "Đồ án chuyên ngành", credits: 5, grade: "B"},
+    {semester: 1, year: "2023-2024", code: "PE1213", name: "Giáo dục thể chất 1+2", credits: 3, grade: "A+"},
+    {semester: 1, year: "2023-2024", code: "IT3260", name: "Hệ quản trị CSDL với Oracle", credits: 3, grade: "B"},
+    {semester: 1, year: "2023-2024", code: "IT3264", name: "Lập trình hướng đối tượng với Java", credits: 3, grade: "B"},
+    {semester: 1, year: "2023-2024", code: "IT3261", name: "Lập trình Web với PHP", credits: 4, grade: "A"},
+    {semester: 1, year: "2023-2024", code: "SSH1204", name: "Lịch sử Đảng Cộng sản Việt Nam", credits: 2, grade: "D+"},
+    {semester: 1, year: "2023-2024", code: "IT2206", name: "Thương mại điện tử", credits: 3, grade: "A"},
+    {semester: 2, year: "2022-2023", code: "IT2204", name: "Hệ thống thông tin quản lý", credits: 3, grade: "B"},
+    {semester: 2, year: "2022-2023", code: "IT3212", name: "Lập trình .NET", credits: 4, grade: "B+"},
+    {semester: 2, year: "2022-2023", code: "IT3237", name: "Lập trình mạng", credits: 3, grade: "B+"},
+    {semester: 2, year: "2022-2023", code: "IT3225", name: "Phân tích và thiết kế hệ thống", credits: 3, grade: "C"},
+    {semester: 2, year: "2022-2023", code: "IT3238", name: "Tiếng Anh CN", credits: 2, grade: "B"},
+    {semester: 2, year: "2022-2023", code: "SSH1205", name: "Tư tưởng Hồ Chí Minh", credits: 2, grade: "B"},
+    {semester: 1, year: "2022-2023", code: "MI1216", name: "Xác suất thống kê", credits: 2, grade: "D+"},
+    {semester: 1, year: "2022-2023", code: "IT2207", name: "Cấu trúc dữ liệu và giải thuật", credits: 3, grade: "C"},
+    {semester: 1, year: "2022-2023", code: "SSH1203", name: "Chủ nghĩa xã hội khoa học", credits: 2, grade: "C+"},
+    {semester: 1, year: "2022-2023", code: "IT2202", name: "Cơ sở dữ liệu", credits: 4, grade: "B"},
+    {semester: 1, year: "2022-2023", code: "IT3222", name: "Mạng máy tính", credits: 3, grade: "D+"},
+    {semester: 1, year: "2022-2023", code: "IT3216", name: "Nguyên lý hệ điều hành", credits: 2, grade: "C"},
+    {semester: 1, year: "2022-2023", code: "IT2209", name: "Phương pháp tính toán tối ưu", credits: 2, grade: "C+"},
+    {semester: 1, year: "2022-2023", code: "FL1221", name: "Tiếng Anh 3", credits: 3, grade: "C+"},
+    {semester: 2, year: "2021-2022", code: "IT2201", name: "Cơ sở lập trình với C", credits: 3, grade: "C"},
+    {semester: 2, year: "2021-2022", code: "IT3218", name: "Công nghệ đa phương tiện", credits: 3, grade: "B"},
+    {semester: 2, year: "2021-2022", code: "MI1212", name: "Đại số", credits: 2, grade: "D"},
+    {semester: 2, year: "2021-2022", code: "IT3213", name: "Kiến trúc máy tính", credits: 2, grade: "C+"},
+    {semester: 2, year: "2021-2022", code: "SSH1202", name: "Kinh tế chính trị Mác - Lênin", credits: 2, grade: "B"},
+    {semester: 2, year: "2021-2022", code: "SSH1206", name: "Pháp luật đại cương", credits: 2, grade: "C"},
+    {semester: 2, year: "2021-2022", code: "IT2203", name: "Thiết kế Web", credits: 3, grade: "C"},
+    {semester: 2, year: "2021-2022", code: "FL1220", name: "Tiếng Anh 2", credits: 3, grade: "D+"},
+    {semester: 2, year: "2021-2022", code: "MI1213", name: "Toán rời rạc", credits: 2, grade: "C"},
+    {semester: 1, year: "2021-2022", code: "MI1209", name: "Giải tích", credits: 3, grade: "D+"},
+    {semester: 1, year: "2021-2022", code: "SSH1207", name: "Kỹ năng mềm", credits: 3, grade: "B"},
+    {semester: 1, year: "2021-2022", code: "IT2208", name: "Thực tập nhận thức ngành nghề", credits: 2, grade: "B+"},
+    {semester: 1, year: "2021-2022", code: "FL1219", name: "Tiếng Anh 1", credits: 3, grade: "D"},
+    {semester: 1, year: "2021-2022", code: "IT2208", name: "Tin học đại cương", credits: 3, grade: "B"},
+    {semester: 1, year: "2021-2022", code: "SSH1201", name: "Triết học Mác - Lênin", credits: 3, grade: "B"}
+  ];
+
+  function renderTranscriptTable() {
+    const tbody = document.getElementById('transcriptTableBody');
+    tbody.innerHTML = '';
+    transcriptData.forEach(item => {
+      const row = document.createElement('tr');
+      const gradeClass = getGradeClass(item.grade);
+      row.innerHTML = `
+        <td>${item.semester}</td>
+        <td>${item.year}</td>
+        <td>${item.code}</td>
+        <td class="subject-name">${item.name}</td>
+        <td>${item.credits}</td>
+        <td class="${gradeClass}">${item.grade}</td>
+        <td></td>
+        <td></td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function getGradeClass(grade) {
+    if (grade.includes('A')) return 'grade-A';
+    if (grade.includes('B')) return 'grade-B';
+    if (grade.includes('C')) return 'grade-C';
+    if (grade.includes('D')) return 'grade-D';
+    return 'grade-F';
+  }
+
+  function printTranscript() {
+    window.print();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderTranscriptTable();
+    const now = new Date();
+    const timestamp = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')} ${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getFullYear()).slice(-2)}`;
+    document.querySelector('.timestamp').textContent = timestamp;
+  });
+</script>
+</body>
+</html>
