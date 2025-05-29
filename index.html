@@ -148,9 +148,7 @@
         color: #007bff;
         text-decoration: underline;
       }
-      .transcript-link[title] {
-        pointer-events: none; /* Ngăn tooltip trên mobile */
-      }
+      /* Loại bỏ pointer-events: none để liên kết hoạt động */
     }
   </style>
 </head>
@@ -220,5 +218,20 @@
   </div>
 </div>
 
+<script>
+  // Ngăn tooltip trên mobile bằng cách xóa thuộc tính title
+  function toggleTooltip() {
+    const transcriptLink = document.querySelector('.transcript-link');
+    if (window.innerWidth <= 768) {
+      transcriptLink.removeAttribute('title');
+    } else {
+      transcriptLink.setAttribute('title', 'Click vào để xem chi tiết bảng điểm');
+    }
+  }
+
+  // Chạy khi tải trang và khi thay đổi kích thước cửa sổ
+  window.addEventListener('load', toggleTooltip);
+  window.addEventListener('resize', toggleTooltip);
+</script>
 </body>
 </html>
